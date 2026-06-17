@@ -8,7 +8,7 @@ async function cadastrarUsuario(event) {
 
     const senha = document.getElementById("senha").value;
 
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await window.supabaseClient.auth.signUp({
 
         email,
 
@@ -24,8 +24,8 @@ async function cadastrarUsuario(event) {
 
     }
 
-    await supabase
-        .from("profiles")
+    await window.supabaseClient
+    .from("profiles")
         .insert({
 
             id: data.user.id,
@@ -50,7 +50,7 @@ async function loginUsuario(event) {
     const senha = document.getElementById("senha").value;
 
     const { error } =
-        await supabase.auth.signInWithPassword({
+        await window.supabaseClient.auth.signInWithPassword({
 
             email,
 
