@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<title>FitTrack Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <header>
+
+        <h1 id="nomeUsuario">
+            Carregando...
+        </h1>
+
+        <button onclick="logout()">
+            Sair
+        </button>
+
+    </header>
+
+    <section class="cards">
+
+        <div class="card">
+            <h3>🔥 Sequência</h3>
+            <span id="streak">0 dias</span>
+        </div>
+
+        <div class="card">
+            <h3>🏋️ Treinos</h3>
+            <span id="totalTreinos">0</span>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Metas</h3>
+            <span id="metas">0</span>
+        </div>
+
+    </section>
+
+    <section class="grafico">
+
+        <h2>Evolução</h2>
+
+        <canvas id="graficoPeso"></canvas>
+
+    </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
