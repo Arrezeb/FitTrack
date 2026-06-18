@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Treinos</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Meus Treinos</h1>
+
+    <form id="treinoForm">
+
+        <input
+            type="text"
+            id="nomeTreino"
+            placeholder="Nome do treino"
+            required>
+
+        <input
+            type="text"
+            id="exercicio"
+            placeholder="Exercício"
+            required>
+
+        <input
+            type="number"
+            id="series"
+            placeholder="Séries"
+            required>
+
+        <input
+            type="number"
+            id="repeticoes"
+            placeholder="Repetições"
+            required>
+
+        <button type="submit">
+            Salvar Treino
+        </button>
+
+    </form>
+
+    <hr>
+
+    <div id="listaTreinos"></div>
+
+</div>
+
+<script src="js/treinos.js"></script>
+
+</body>
+</html>
