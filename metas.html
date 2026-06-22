@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<title>Metas</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Minhas Metas</h1>
+
+    <form id="metaForm">
+
+        <input
+            type="text"
+            id="titulo"
+            placeholder="Título da Meta"
+            required>
+
+        <textarea
+            id="descricao"
+            placeholder="Descrição"></textarea>
+
+        <button type="submit">
+            Criar Meta
+        </button>
+
+    </form>
+
+    <hr>
+
+    <div id="listaMetas"></div>
+
+</div>
+
+<script src="js/metas.js"></script>
+
+</body>
+</html>
