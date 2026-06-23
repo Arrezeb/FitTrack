@@ -172,48 +172,17 @@ async function criarGrafico() {
     });
 }
 
-    const ctx =
-        document.getElementById("graficoPeso");
+async function iniciarDashboard() {
 
-    new Chart(ctx, {
+    await verificarLogin();
 
-        type: "line",
+    await carregarTotalTreinos();
 
-        data: {
+    await carregarTotalMetas();
 
-            labels: [
-                "Jan",
-                "Fev",
-                "Mar",
-                "Abr",
-                "Mai",
-                "Jun"
-            ],
+    await carregarUltimoPeso();
 
-            datasets: [{
-
-                label: "Peso (kg)",
-
-                data: [
-                    70,
-                    69,
-                    68,
-                    67,
-                    67,
-                    66
-                ]
-
-            }]
-        }
-    });
+    await criarGrafico();
 }
 
-verificarLogin();
-
-carregarTotalTreinos();
-
-carregarTotalMetas();
-
-carregarUltimoPeso();
-
-criarGrafico();
+iniciarDashboard();
