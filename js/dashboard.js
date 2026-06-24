@@ -1,4 +1,4 @@
-const db = window.dbClient;
+const db = window.supabaseClient;
 
 async function verificarLogin() {
 
