@@ -1,8 +1,8 @@
-const supabase = window.supabaseClient;
+const db = window.dbClient;
 
 async function verificarLogin() {
 
-    const { data } = await supabase.auth.getSession();
+    const { data } = await db.auth.getSession();
 
     if (!data.session) {
 
@@ -19,11 +19,11 @@ async function verificarLogin() {
 async function carregarUsuario() {
 
     const { data: sessionData } =
-        await supabase.auth.getSession();
+        await db.auth.getSession();
 
     const userId = sessionData.session.user.id;
 
-    const { data, error } = await supabase
+    const { data, error } = await db
         .from("profiles")
         .select("*")
         .eq("id", userId)
@@ -44,12 +44,12 @@ async function carregarTotalTreinos() {
 
     const {
         data: { user }
-    } = await supabase.auth.getUser();
+    } = await db.auth.getUser();
 
     if (!user) return;
 
     const { data, error } =
-        await supabase
+        await db
             .from("treinos")
             .select("id")
             .eq("usuario_id", user.id);
@@ -69,12 +69,12 @@ async function carregarTotalMetas() {
 
     const {
         data: { user }
-    } = await supabase.auth.getUser();
+    } = await db.auth.getUser();
 
     if (!user) return;
 
     const { data, error } =
-        await supabase
+        await db
             .from("metas")
             .select("id")
             .eq("usuario_id", user.id);
@@ -94,12 +94,12 @@ async function carregarUltimoPeso() {
 
     const {
         data: { user }
-    } = await supabase.auth.getUser();
+    } = await db.auth.getUser();
 
     if (!user) return;
 
     const { data, error } =
-        await supabase
+        await db
             .from("medidas")
             .select("peso")
             .eq("usuario_id", user.id)
@@ -129,12 +129,12 @@ async function criarGrafico() {
 
     const {
         data: { user }
-    } = await supabase.auth.getUser();
+    } = await db.auth.getUser();
 
     if (!user) return;
 
     const { data, error } =
-        await supabase
+        await db
             .from("medidas")
             .select("peso, created_at")
             .eq("usuario_id", user.id)
@@ -188,7 +188,7 @@ async function criarGrafico() {
 
 async function logout() {
 
-    await supabase.auth.signOut();
+    await db.auth.signOut();
 
     window.location.href = "login.html";
 }
