@@ -234,6 +234,64 @@ async function carregarUltimoPeso() {
     }
 }
 
+async function carregarEvolucaoPeso() {
+
+const {
+    data: { user }
+} = await db.auth.getUser();
+
+if (!user) return;
+
+const { data, error } = await db
+    .from("medidas")
+    .select("peso")
+    .eq("usuario_id", user.id)
+    .order("created_at", { ascending: true });
+
+if (error) {
+
+    console.error(
+        "Erro ao carregar evolução de peso:",
+        error
+    );
+
+    return;
+}
+
+if (!data || data.length === 0) {
+
+    document.getElementById("pesoInicial")
+        .innerText = "-- kg";
+
+    document.getElementById("diferencaPeso")
+        .innerText = "-- kg";
+
+    return;
+}
+
+const pesoInicial = data[0].peso;
+const pesoAtual = data[data.length - 1].peso;
+
+const diferenca =
+    (pesoAtual - pesoInicial).toFixed(1);
+
+document.getElementById("pesoInicial")
+    .innerText = `${pesoInicial} kg`;
+
+if (diferenca > 0) {
+
+    document.getElementById("diferencaPeso")
+        .innerText = `+${diferenca} kg`;
+
+} else {
+
+    document.getElementById("diferencaPeso")
+        .innerText = `${diferenca} kg`;
+}
+
+}
+
+
 async function criarGrafico() {
 
     const {
@@ -304,7 +362,6 @@ async function logout() {
 
 async function iniciarDashboard() {
 
-
 const logado = await verificarLogin();
 
 if (!logado) return;
@@ -319,8 +376,10 @@ await carregarMetasConcluidas();
 
 await carregarUltimoPeso();
 
-await criarGrafico();
+await carregarEvolucaoPeso();
 
+await criarGrafico();
 }
+
 
 iniciarDashboard();
