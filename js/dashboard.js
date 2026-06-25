@@ -90,6 +90,83 @@ async function carregarTotalMetas() {
         .innerText = data.length;
 }
 
+async function carregarStreak() {
+
+
+const {
+    data: { user }
+} = await db.auth.getUser();
+
+if (!user) return;
+
+const { data, error } = await db
+    .from("treinos")
+    .select("created_at")
+    .eq("usuario_id", user.id)
+    .order("created_at", { ascending: false });
+
+if (error) {
+
+    console.error("Erro ao calcular streak:", error);
+
+    return;
+}
+
+if (!data || data.length === 0) {
+
+    document.getElementById("streak")
+        .innerText = "0 dias";
+
+    return;
+}
+
+const diasTreinados = [...new Set(
+    data.map(item =>
+        new Date(item.created_at)
+            .toISOString()
+            .split("T")[0]
+    )
+)];
+
+const hoje = new Date();
+
+hoje.setHours(0, 0, 0, 0);
+
+let streak = 0;
+
+for (let i = 0; i < diasTreinados.length; i++) {
+
+    const dataTreino =
+        new Date(diasTreinados[i]);
+
+    const dataEsperada =
+        new Date(hoje);
+
+    dataEsperada.setDate(
+        hoje.getDate() - i
+    );
+
+    if (
+        dataTreino.getTime() ===
+        dataEsperada.getTime()
+    ) {
+
+        streak++;
+
+    } else {
+
+        break;
+    }
+}
+
+document.getElementById("streak")
+    .innerText =
+    `${streak} dia${streak !== 1 ? "s" : ""}`;
+
+
+}
+
+
 async function carregarUltimoPeso() {
 
     const {
@@ -195,17 +272,19 @@ async function logout() {
 
 async function iniciarDashboard() {
 
-    const logado = await verificarLogin();
+const logado = await verificarLogin();
 
-    if (!logado) return;
+if (!logado) return;
 
-    await carregarTotalTreinos();
+await carregarStreak();
 
-    await carregarTotalMetas();
+await carregarTotalTreinos();
 
-    await carregarUltimoPeso();
+await carregarTotalMetas();
 
-    await criarGrafico();
+await carregarUltimoPeso();
+
+await criarGrafico();
+
 }
-
 iniciarDashboard();
