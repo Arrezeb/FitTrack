@@ -90,6 +90,38 @@ async function carregarTotalMetas() {
         .innerText = data.length;
 }
 
+async function carregarMetasConcluidas() {
+
+
+const {
+    data: { user }
+} = await db.auth.getUser();
+
+if (!user) return;
+
+const { data, error } = await db
+    .from("metas")
+    .select("id")
+    .eq("usuario_id", user.id)
+    .eq("status", "Concluída");
+
+if (error) {
+
+    console.error(
+        "Erro ao carregar metas concluídas:",
+        error
+    );
+
+    return;
+}
+
+document.getElementById("metasConcluidas")
+    .innerText = data.length;
+
+
+}
+
+
 async function carregarStreak() {
 
 
@@ -272,6 +304,7 @@ async function logout() {
 
 async function iniciarDashboard() {
 
+
 const logado = await verificarLogin();
 
 if (!logado) return;
@@ -282,9 +315,12 @@ await carregarTotalTreinos();
 
 await carregarTotalMetas();
 
+await carregarMetasConcluidas();
+
 await carregarUltimoPeso();
 
 await criarGrafico();
 
 }
+
 iniciarDashboard();
