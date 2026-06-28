@@ -291,6 +291,50 @@ if (diferenca > 0) {
 
 }
 
+async function carregarUltimoTreino() {
+
+const {
+    data: { user }
+} = await db.auth.getUser();
+
+if (!user) return;
+
+const { data, error } = await db
+    .from("treinos")
+    .select("nome, exercicio, created_at")
+    .eq("usuario_id", user.id)
+    .order("created_at", { ascending: false })
+    .limit(1);
+
+if (error) {
+
+    console.error(
+        "Erro ao carregar último treino:",
+        error
+    );
+
+    return;
+}
+
+if (!data || data.length === 0) {
+
+    document.getElementById("ultimoTreino")
+        .innerText = "Nenhum treino";
+
+    return;
+}
+
+const treino = data[0];
+
+const dataFormatada =
+    new Date(treino.created_at)
+        .toLocaleDateString("pt-BR");
+
+document.getElementById("ultimoTreino")
+    .innerHTML =
+    `${treino.nome}<br>${treino.exercicio}<br>${dataFormatada}`;
+}
+
 
 async function criarGrafico() {
 
@@ -369,6 +413,8 @@ if (!logado) return;
 await carregarStreak();
 
 await carregarTotalTreinos();
+
+await carregarUltimoTreino();
 
 await carregarTotalMetas();
 
