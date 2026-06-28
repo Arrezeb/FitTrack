@@ -65,42 +65,44 @@
 
     <section class="cards">
 
-        <div class="card">
-            <h3>🔥 Sequência</h3>
-            <span id="streak">0 dias</span>
-        </div>
+        <div class="card streak">
+			<h3><i class="bi bi-fire"></i> Sequência</h3>
+			<span id="streak">0 dias</span>
+		</div>
 
-        <div class="card">
-            <h3>🏋️ Treinos</h3>
-            <span id="totalTreinos">0</span>
-        </div>
+		<div class="card treino">
+			<h3><i class="bi bi-barbell"></i> Treinos</h3>
+			<span id="totalTreinos">0</span>
+		</div>
 
-        <div class="card">
-            <h3>🎯 Metas</h3>
-            <span id="metas">0</span>
-        </div>
-		
-		<div class="card"> 
-			<h3>✅ Concluídas</h3> 
-			<span id="metasConcluidas">0</span> 
+        <div class="card metas">
+			<h3><i class="bi bi-bullseye"></i> Metas</h3>
+			<span id="metas">0</span>
 		</div>
 		
-		<div class="card">
-			<h3>📏 Último Peso</h3>
+		<div class="card concluidas">
+			<h3><i class="bi bi-check-circle"></i> Concluídas</h3>
+			<span id="metasConcluidas">0</span>
+		</div>
+		
+		<div class="card peso">
+			<h3><i class="bi bi-rulers"></i> Último Peso</h3>
 			<span id="ultimoPeso">-- kg</span>
 		</div>
-		<div class="card">
-			<h3>⚖️ Peso Inicial</h3>
+		
+		<div class="card peso-inicial">
+			<h3><i class="bi bi-flag"></i> Peso Inicial</h3>
 			<span id="pesoInicial">-- kg</span>
 		</div>
 
-		<div class="card">
-			<h3>📉 Diferença</h3>
+		<div class="card evolucao">
+			<h3><i class="bi bi-graph-down"></i> Diferença</h3>
 			<span id="diferencaPeso">-- kg</span>
 		</div>
-		<div class="card">
-			<h3>🏋️ Último Treino</h3>
-			<span id="ultimoTreino">Nenhum treino</span>
+		
+		<div class="card ultimo-treino">
+			<h3><i class="bi bi-calendar-check"></i> Último Treino</h3>
+			<span id="ultimoTreino">--</span>
 		</div>
 
 
@@ -109,8 +111,10 @@
 
     <section class="grafico">
 
-        <h2>Evolução</h2>
-
+		<h2>
+			📈 Evolução do Peso
+		</h2>
+		
         <canvas id="graficoPeso"></canvas>
 
     </section>

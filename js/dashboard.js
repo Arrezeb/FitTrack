@@ -37,7 +37,10 @@ async function carregarUsuario() {
     }
 
     document.getElementById("nomeUsuario")
-        .innerText = `Olá, ${data.nome}! 👋`;
+		.innerHTML = 
+			<small>Bem-vindo,</small><br>
+			${data.nome} 👋
+		;
 }
 
 async function carregarTotalTreinos() {

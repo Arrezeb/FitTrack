@@ -1,17 +1,27 @@
+/* =========================
+   FITTRACK 2.0 - BASE
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
 
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
 
-    background-color: #f5f5f5;
+    background: #eef3f8;
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
+    color: #1e293b;
 
     min-height: 100vh;
 }
+
+/* =========================
+   LOGIN / CADASTRO
+========================= */
 
 .container {
 
@@ -19,11 +29,13 @@ body {
 
     padding: 30px;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
     width: 350px;
 
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+    margin: auto;
 }
 
 input {
@@ -33,7 +45,24 @@ input {
     padding: 12px;
 
     margin: 10px 0;
+
+    border-radius: 10px;
+
+    border: 1px solid #e2e8f0;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
 }
+
+input:focus {
+
+    border-color: #2563eb;
+}
+
+/* =========================
+   BOTÕES
+========================= */
 
 button {
 
@@ -47,149 +76,269 @@ button {
 
     color: white;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
     cursor: pointer;
+
+    font-family: "Poppins", sans-serif;
+
+    font-weight: 600;
+
+    transition: .25s;
 }
+
+button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 18px rgba(37,99,235,.25);
+}
+
+/* =========================
+   DASHBOARD CONTAINER
+========================= */
 
 .dashboard {
 
     width: 90%;
+
     max-width: 1200px;
+
+    margin: auto;
+
+    padding-top: 20px;
 }
 
-header {
+/* =========================
+   HEADER (TOPBAR)
+========================= */
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 30px;
-}
-
-.cards {
-
-    display: flex;
-    gap: 20px;
-
-    margin-bottom: 30px;
-}
-
-.card {
-
-    flex: 1;
+.topbar {
 
     background: white;
 
+    padding: 20px;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 26px;
+
+    font-weight: 700;
+
+    color: #2563eb;
+}
+
+nav {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+/* =========================
+   CARDS GRID
+========================= */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+
+    margin-top: 30px;
+
+    margin-bottom: 30px;
+}
+
+/* =========================
+   CARDS PREMIUM
+========================= */
+
+.card {
+
+    background: #fff;
+
+    border-radius: 18px;
+
     padding: 25px;
 
-    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
 
-    text-align: center;
+    transition: .3s;
 
-    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    position: relative;
+
+    overflow: hidden;
+}
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 6px;
+
+    height: 100%;
+
+    background: #2563eb;
+}
+
+.card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 20px 40px rgba(0,0,0,.12);
+}
+
+.card h3 {
+
+    font-size: 16px;
+
+    color: #64748b;
+
+    margin-bottom: 15px;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.card h3 i{
+    font-size:18px;
 }
 
 .card span {
 
+    font-size: 34px;
+
+    font-weight: 700;
+
+    color: #1e293b;
+
     display: block;
 
-    margin-top: 15px;
-
-    font-size: 28px;
-
-    font-weight: bold;
+    margin-top: 10px;
 }
+
+/* =========================
+   GRÁFICO
+========================= */
 
 .grafico {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+
     width: 100%;
-    max-width: 900px;
-    margin: 20px auto;
-    height: 400px;
+
+    height: 450px;
 }
 
-/* ========================= */
-/* FITTRACK 2.0 */
-/* ========================= */
+/* =========================
+   RESPONSIVO
+========================= */
 
-body{
+@media (max-width: 768px) {
 
-    font-family:"Poppins",sans-serif;
+    .topbar {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
 
-    background:#eef3f8;
-
-    color:#1e293b;
+    nav {
+        justify-content: center;
+    }
 }
 
-.topbar{
+#nomeUsuario small{
 
-    background:white;
+    color:#64748b;
 
-    padding:20px;
+    font-size:15px;
 
-    border-radius:16px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:30px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    font-weight:500;
 }
 
-.logo{
+/* ===== CORES DOS CARDS ===== */
 
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    font-size:28px;
-
-    font-weight:700;
-
-    color:#2563eb;
+.card i{
+    margin-right:8px;
 }
 
-nav{
-
-    display:flex;
-
-    gap:10px;
-
-    flex-wrap:wrap;
+/* Sequência */
+.card.streak{
+    border-left:6px solid #f59e0b;
 }
 
-button{
-
-    transition:.25s;
-
-    font-family:"Poppins",sans-serif;
-
-    font-weight:600;
+/* Treinos */
+.card.treino{
+    border-left:6px solid #2563eb;
 }
 
-button:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:0 8px 18px rgba(37,99,235,.25);
+/* Metas */
+.card.metas{
+    border-left:6px solid #22c55e;
 }
 
-.card{
-
-    transition:.25s;
-
-    border-left:5px solid #2563eb;
+/* Concluídas */
+.card.concluidas{
+    border-left:6px solid #10b981;
 }
 
-.card:hover{
+/* Peso */
+.card.peso{
+    border-left:6px solid #06b6d4;
+}
 
-    transform:translateY(-6px);
+/* Evolução */
+.card.evolucao{
+    border-left:6px solid #ef4444;
+}
 
-    box-shadow:0 15px 30px rgba(0,0,0,.12);
+/* Peso Inicial */
+.card.peso-inicial{
+    border-left:6px solid #f59e0b;
+}
+
+/* Último Treino */
+.card.ultimo-treino{
+    border-left:6px solid #8b5cf6;
 }
