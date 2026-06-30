@@ -356,3 +356,20 @@ nav {
 .card.ultimo-treino{
     border-left:6px solid #8b5cf6;
 }
+
+select{
+
+    width:100%;
+
+    padding:12px;
+
+    margin:10px 0;
+
+    border-radius:10px;
+
+    border:1px solid #dbe2ea;
+
+    font-family:"Poppins",sans-serif;
+
+    font-size:15px;
+}

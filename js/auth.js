@@ -8,6 +8,8 @@ async function cadastrarUsuario(event) {
 
     const senha = document.getElementById("senha").value;
 
+	const tipo = document.getElementById("tipo").value;
+
     const { data, error } = await window.supabaseClient.auth.signUp({
 
         email,
@@ -24,17 +26,17 @@ async function cadastrarUsuario(event) {
 
     }
 
-    await window.supabaseClient
-    .from("profiles")
-        .insert({
+	await window.supabaseClient
+		.from("profiles")
+		.insert({
 
-            id: data.user.id,
+			id: data.user.id,
 
-            nome: nome,
+			nome: nome,
 
-            tipo: "aluno"
+			type: tipo
 
-        });
+		});
 
     alert("Cadastro realizado!");
 
@@ -43,17 +45,17 @@ async function cadastrarUsuario(event) {
 
 async function loginUsuario(event) {
 
+async function loginUsuario(event) {
+
     event.preventDefault();
 
     const email = document.getElementById("email").value;
-
     const senha = document.getElementById("senha").value;
 
-    const { error } =
+    const { data, error } =
         await window.supabaseClient.auth.signInWithPassword({
 
             email,
-
             password: senha
 
         });
@@ -61,13 +63,25 @@ async function loginUsuario(event) {
     if (error) {
 
         alert(error.message);
-
         return;
     }
 
-    window.location.href = "dashboard.html";
-}
+    const { data: perfil } =
+        await window.supabaseClient
+            .from("profiles")
+            .select("type")
+            .eq("id", data.user.id)
+            .single();
 
+    if (perfil.type === "treinador") {
+
+        window.location.href = "dashboard_treinador.html";
+
+    } else {
+
+        window.location.href = "dashboard.html";
+    }
+}
 document
     .getElementById("cadastroForm")
     ?.addEventListener("submit", cadastrarUsuario);
