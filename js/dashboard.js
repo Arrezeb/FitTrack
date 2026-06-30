@@ -36,12 +36,22 @@ async function carregarUsuario() {
         return;
     }
 
-		document.getElementById("nomeUsuario").innerHTML = `
-		<small>Bem-vindo,</small><br>
-		${data.nome} 👋
-	`;
-}
+    const hora = new Date().getHours();
 
+    let saudacao = "Olá";
+
+    if (hora < 12) {
+        saudacao = "Bom dia";
+    } else if (hora < 18) {
+        saudacao = "Boa tarde";
+    } else {
+        saudacao = "Boa noite";
+    }
+    document.getElementById("nomeUsuario").innerHTML = `
+        <small>${saudacao},</small><br>
+        ${data.nome} 👋
+    `;
+}
 async function carregarTotalTreinos() {
 
     const {
@@ -238,58 +248,65 @@ async function carregarUltimoPeso() {
 
 async function carregarEvolucaoPeso() {
 
-const {
-    data: { user }
-} = await db.auth.getUser();
+    const {
+        data: { user }
+    } = await db.auth.getUser();
 
-if (!user) return;
+    if (!user) return;
 
-const { data, error } = await db
-    .from("medidas")
-    .select("peso")
-    .eq("usuario_id", user.id)
-    .order("created_at", { ascending: true });
+    const { data, error } = await db
+        .from("medidas")
+        .select("peso")
+        .eq("usuario_id", user.id)
+        .order("created_at", { ascending: true });
 
-if (error) {
+    if (error) {
 
-    console.error(
-        "Erro ao carregar evolução de peso:",
-        error
-    );
+        console.error(
+            "Erro ao carregar evolução de peso:",
+            error
+        );
 
-    return;
-}
+        return;
+    }
 
-if (!data || data.length === 0) {
+    if (!data || data.length === 0) {
+
+        document.getElementById("pesoInicial")
+            .innerText = "-- kg";
+
+        document.getElementById("diferencaPeso")
+            .innerText = "-- kg";
+
+        return;
+    }
+
+    const pesoInicial = data[0].peso;
+    const pesoAtual = data[data.length - 1].peso;
+
+    const diferenca = (pesoAtual - pesoInicial).toFixed(1);
 
     document.getElementById("pesoInicial")
-        .innerText = "-- kg";
+        .innerText = `${pesoInicial} kg`;
 
-    document.getElementById("diferencaPeso")
-        .innerText = "-- kg";
+    const elemento = document.getElementById("diferencaPeso");
 
-    return;
-}
+    if (diferenca > 0) {
 
-const pesoInicial = data[0].peso;
-const pesoAtual = data[data.length - 1].peso;
+        elemento.innerText = `+${diferenca} kg`;
+        elemento.style.color = "#ef4444";
 
-const diferenca =
-    (pesoAtual - pesoInicial).toFixed(1);
+    } else if (diferenca < 0) {
 
-document.getElementById("pesoInicial")
-    .innerText = `${pesoInicial} kg`;
+        elemento.innerText = `${diferenca} kg`;
+        elemento.style.color = "#22c55e";
 
-if (diferenca > 0) {
+    } else {
 
-    document.getElementById("diferencaPeso")
-        .innerText = `+${diferenca} kg`;
+        elemento.innerText = "0 kg";
+        elemento.style.color = "#1e293b";
 
-} else {
-
-    document.getElementById("diferencaPeso")
-        .innerText = `${diferenca} kg`;
-}
+    }
 
 }
 
@@ -332,9 +349,11 @@ const dataFormatada =
     new Date(treino.created_at)
         .toLocaleDateString("pt-BR");
 
-document.getElementById("ultimoTreino")
-    .innerHTML =
-    `${treino.nome}<br>${treino.exercicio}<br>${dataFormatada}`;
+document.getElementById("ultimoTreino").innerHTML = `
+	<strong>${treino.nome}</strong><br>
+	<small>${treino.exercicio}</small><br>
+	<small>${dataFormatada}</small>
+`;
 }
 
 
@@ -370,34 +389,55 @@ async function criarGrafico() {
     const ctx =
         document.getElementById("graficoPeso");
 
-    if (!ctx) return;
+   const ctx = document.getElementById("graficoPeso");
 
-    new Chart(ctx, {
+if (!ctx) return;
 
-        type: "line",
+if (data.length === 0) {
 
-        data: {
+    document.querySelector(".grafico").innerHTML = `
+        <h2>📈 Evolução do Peso</h2>
+        <p style="margin-top:20px;text-align:center;">
+            Nenhuma medida cadastrada ainda.
+        </p>
+    `;
 
-            labels: labels,
+    return;
+}
 
-            datasets: [{
+new Chart(ctx, {
 
-                label: "Peso (kg)",
+    type: "line",
+    data: {
+        labels: labels,
+        datasets: [{
 
-                data: pesos,
-
-                tension: 0.3
-            }]
+            label: "Peso (kg)",
+            data: pesos,
+            borderColor: "#2563eb",
+            backgroundColor: "rgba(37,99,235,.15)",
+            fill: true,
+            pointRadius: 5,
+            pointHoverRadius: 8,
+            tension: .35
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: true
+            }
         },
 
-        options: {
-
-            responsive: true,
-
-            maintainAspectRatio: false
+        scales: {
+            y: {
+                beginAtZero: false
+            }
         }
-    });
-}
+    }
+});
 
 async function logout() {
 

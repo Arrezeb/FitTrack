@@ -297,6 +297,20 @@ nav {
     font-weight:500;
 }
 
+#ultimoTreino strong{
+
+    font-size:18px;
+
+    color:#1e293b;
+}
+
+#ultimoTreino small{
+
+    color:#64748b;
+
+    font-size:13px;
+}
+
 /* ===== CORES DOS CARDS ===== */
 
 .card i{
