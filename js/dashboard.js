@@ -36,10 +36,10 @@ async function carregarUsuario() {
         return;
     }
 
-		document.getElementById("nomeUsuario").innerHTML = 
-			<small>Bem-vindo,</small><br>
-			${data.nome} 👋
-		;
+		document.getElementById("nomeUsuario").innerHTML = `
+		<small>Bem-vindo,</small><br>
+		${data.nome} 👋
+	`;
 }
 
 async function carregarTotalTreinos() {
