@@ -386,8 +386,6 @@ async function criarGrafico() {
 
     const pesos = data.map(item => item.peso);
 
-    const ctx =
-        document.getElementById("graficoPeso");
 
    const ctx = document.getElementById("graficoPeso");
 
