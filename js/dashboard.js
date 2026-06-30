@@ -36,8 +36,7 @@ async function carregarUsuario() {
         return;
     }
 
-    document.getElementById("nomeUsuario")
-		.innerHTML = 
+		document.getElementById("nomeUsuario").innerHTML = 
 			<small>Bem-vindo,</small><br>
 			${data.nome} 👋
 		;
