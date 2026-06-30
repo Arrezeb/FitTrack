@@ -45,8 +45,6 @@ async function cadastrarUsuario(event) {
 
 async function loginUsuario(event) {
 
-async function loginUsuario(event) {
-
     event.preventDefault();
 
     const email = document.getElementById("email").value;
@@ -64,6 +62,7 @@ async function loginUsuario(event) {
 
         alert(error.message);
         return;
+
     }
 
     const { data: perfil } =
@@ -73,15 +72,17 @@ async function loginUsuario(event) {
             .eq("id", data.user.id)
             .single();
 
-    if (perfil.type === "treinador") {
+    if (perfil && perfil.type === "treinador") {
 
         window.location.href = "dashboard_treinador.html";
 
     } else {
 
         window.location.href = "dashboard.html";
+
     }
 }
+
 document
     .getElementById("cadastroForm")
     ?.addEventListener("submit", cadastrarUsuario);
