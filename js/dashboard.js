@@ -436,6 +436,7 @@ new Chart(ctx, {
         }
     }
 });
+}
 
 async function logout() {
 
