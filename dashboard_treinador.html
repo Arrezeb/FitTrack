@@ -61,6 +61,18 @@ Sair
 
 <div class="card">
 
+<div style="margin-bottom:20px">
+
+    <button onclick="abrirModalAluno()">
+
+        <i class="bi bi-person-plus-fill"></i>
+
+        Adicionar aluno
+
+    </button>
+
+</div>
+
 <h3><i class="bi bi-people"></i> Alunos</h3>
 
 <span id="totalAlunos">0</span>
@@ -98,6 +110,34 @@ Meus Alunos
 <div id="listaAlunos"></div>
 
 </section>
+
+</div>
+
+<div id="modalAluno" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Adicionar aluno</h2>
+
+        <select id="listaUsuarios">
+
+        </select>
+
+        <br><br>
+
+        <button onclick="adicionarAluno()">
+
+            Salvar
+
+        </button>
+
+        <button onclick="fecharModal()">
+
+            Cancelar
+
+        </button>
+
+    </div>
 
 </div>
 
